@@ -4,7 +4,9 @@ import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import { product } from "@/utils/product";
 import SetColor from "./../../components/product/setColor";
-
+import SetQuantity from "@/app/components/product/setQuantity";
+import Button from "@/app/components/button";
+import ProductImage from "@/app/components/product/productImage";
 interface ProductDetailsProps {
   product: any;
 }
@@ -43,24 +45,48 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   });
 
   console.log(cartProduct);
-  
 
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
     product.reviews.length;
 
-  const handleColorSelect = useCallback(
-    (value: SelectedImgType) => {
-      setCartProduct((prev) => {
-        return {...prev, selectedImg: value}
-      })
-    },
-    []
-  );
+  const handleColorSelect = useCallback((value: SelectedImgType) => {
+    setCartProduct((prev) => {
+      return { ...prev, selectedImg: value };
+    });
+  }, []);
+
+  const handleQtyIncrease = useCallback(() => {
+    if (cartProduct.quantity === 50) {
+      return;
+    }
+    setCartProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity + 1,
+      };
+    });
+  }, [cartProduct.quantity]);
+  const handleQtyDecrease = useCallback(() => {
+    if (cartProduct.quantity === 1) {
+      return;
+    }
+    setCartProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity - 1,
+      };
+    });
+  }, [cartProduct.quantity]);
+
   return (
     <>
       <div className=" grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>Images</div>
+        <ProductImage
+          cartProduct={cartProduct}
+          product={product}
+          handleColorSelect={handleColorSelect}
+        />
         <div>
           <h2 className=" text-3xl font-medium text-slate-700">
             {product.name}
@@ -92,9 +118,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             handleColorSelect={handleColorSelect}
           />
           <Horizontal />
-          <div>Quality</div>
+          <SetQuantity
+            cartProduct={cartProduct}
+            handleQtyIncrease={handleQtyIncrease}
+            handleQtyDecrease={handleQtyDecrease}
+          />
           <Horizontal />
-          <div>Add to cart </div>
+          <div className=" max-w-[300px]">
+            <Button label="Add To Cart" onClick={() => {}} />
+          </div>
         </div>
       </div>
     </>

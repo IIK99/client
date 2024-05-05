@@ -22,7 +22,7 @@ export const product = {
       color: "Red",
       colorCode: "#FF0000",
       image:
-        "https://m.media-amazon.com/images/I/61thdjmfHcL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+        "https://tejarra-media.s3.amazonaws.com/70330/6443288_sd.jpg",
     },
   ],
   reviews: [
