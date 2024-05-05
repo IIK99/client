@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".", // ini yang ditambahkan
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/utils/*": ["src/utils/*"], // ini yang ditambahkan
+      "@/components/*": ["src/components/*"] // ini yang ditambahkan
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

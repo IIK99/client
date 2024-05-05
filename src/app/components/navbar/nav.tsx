@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className=" py-4 border-b-[1px]">
         <Container>
           <div className=" flex items-center justify-between gap-3 md:gap-3">
-            <Link href={'/'} className={font.className}>Market Iku</Link>
+            <Link href={'/'} className={`${font.className} font-bold text-2xl`}>Market Iku</Link>
             <div className=" hidden md:block">Search</div>
             <div className=" flex items-center gap-8 md:gap-12">
               <div>CartCount</div>
