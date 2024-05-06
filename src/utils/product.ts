@@ -21,8 +21,7 @@ export const product = {
     {
       color: "Red",
       colorCode: "#FF0000",
-      image:
-        "https://tejarra-media.s3.amazonaws.com/70330/6443288_sd.jpg",
+      image: "https://tejarra-media.s3.amazonaws.com/70330/6443288_sd.jpg",
     },
   ],
   reviews: [
