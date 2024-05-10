@@ -35,7 +35,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
           <Link href={`/product/${item.id}`}>{truncateText(item.name)}</Link>
           <div>{item.selectedImg.color}</div>
           <div className=" w-[70px]">
-            <button className=" text-slate-500 underline" onClick={() => {}}>
+            <button className=" text-slate-500 underline" onClick={() => {handleRemoveProductFromCart(item)}}>
               Remove
             </button>
           </div>
