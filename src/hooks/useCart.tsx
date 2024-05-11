@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 type CartContextType = {
   cartTotalQty: number;
+  cartTotalAmount: number;
   cartProducts: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
@@ -26,10 +27,14 @@ interface Props {
 }
 
 export const CartContextProvider = (props: Props) => {
-  const [cartTotalQty, setCartTotalQty] = useState(10);
+  const [cartTotalQty, setCartTotalQty] = useState(0);
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(
     null
   );
+
+  console.log("qty: ", cartTotalQty);
+  console.log("amount: ", cartTotalAmount);
 
   useEffect(() => {
     const cartItems: any = localStorage.getItem("eShopCartItems");
@@ -37,6 +42,31 @@ export const CartContextProvider = (props: Props) => {
 
     setCartProducts(cProducts);
   }, []);
+
+  useEffect(() => {
+    const getTotals = () => {
+      if (cartProducts) {
+        const { total, qty } = cartProducts?.reduce(
+          (acc, item) => {
+            const itemTotal = item.price * item.quantity;
+
+            acc.total += itemTotal;
+            acc.qty += item.quantity;
+
+            return acc;
+          },
+          {
+            total: 0,
+            qty: 0,
+          }
+        );
+        setCartTotalQty(qty);
+        setCartTotalAmount(total);
+      }
+    };
+
+    getTotals();
+  }, [cartProducts]);
 
   const handleAddProductToCart = useCallback((product: CartProductType) => {
     setCartProducts((prev) => {
@@ -121,18 +151,19 @@ export const CartContextProvider = (props: Props) => {
 
   const handleClearCart = useCallback(() => {
     setCartProducts(null);
-    setCartTotalQty(0)
+    setCartTotalQty(0);
     localStorage.setItem("eShopCartItem", JSON.stringify(null));
-  },[])
+  }, []);
 
   const value = {
     cartTotalQty,
+    cartTotalAmount,
     cartProducts,
     handleAddProductToCart,
     handleRemoveProductFromCart,
     handleCartQtyIncrease,
     handleCartQtyDecrease,
-    handleClearCart
+    handleClearCart,
   };
   return <CartContext.Provider value={value} {...props} />;
 };
