@@ -8,7 +8,7 @@ import Button from "../components/button";
 import Link from "next/link";
 import { AiOutlineGoogle } from "react-icons/ai";
 
-const RegisterFrom = () => {
+const LoginFrom = () => {
   const [isLoading, setIsLoading] = useState<boolean>();
   const {
     register,
@@ -16,10 +16,8 @@ const RegisterFrom = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -30,22 +28,15 @@ const RegisterFrom = () => {
   };
   return (
     <>
-      <Heading title={"Sign up for Iku Market"} />
+      <Heading title={"Sign In to Iku Market"} />
       <Button
         outline
-        label="Sign Up with Google"
+        label="Login with Google"
         icon={AiOutlineGoogle}
         onClick={() => {}}
       />
       <hr className=" bg-slate-300 w-full h-px" />
-      <Input
-        id="name"
-        label="Name"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
+      
       <Input
         id="email"
         label="Email"
@@ -63,27 +54,18 @@ const RegisterFrom = () => {
         required
         type="password"
       />
-      <Input
-        id="confirmPassword"
-        label="Confirm Password"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-        type="password"
-      />
       <Button
-        label={isLoading ? "Loading" : "Sign Up"}
+        label={isLoading ? "Loading" : "Login"}
         onClick={handleSubmit(onSubmit)}
       />
       <p className=" text-sm">
-        Already have an account?{""}
-        <Link className=" underline ml-2" href={"/login"}>
-          Log In
+        Do not have an account?{""}
+        <Link className=" underline ml-2" href={"/register"}>
+          Sign Up
         </Link>
       </p>
     </>
   );
 };
 
-export default RegisterFrom;
+export default LoginFrom;
